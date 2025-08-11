@@ -1,0 +1,96 @@
+<link rel="stylesheet" href="{{ 'component-rte.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'component-rte.css' | asset_url | stylesheet_tag }}</noscript>
+<style>
+  .main-page-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top_mbl }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mbl }}px;
+  }
+  @media (min-width: 750px) {
+    .main-page-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top_desk }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desk }}px;
+    }
+  }
+</style>
+{% unless template.suffix contains 'landing' %}
+<div class="main-page-{{ section.id }} page-width page-width--narrow{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}" style="{% if section.settings.enable_page_full_width == true %}max-width: 100%; padding-left: 0; padding-right: 0;{% endif %}">
+	<div class="container">
+      {% if section.settings.hide_page_title != true %}
+	  <h1 class="main-page-title page-header{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}"style="font-family: var(--font-heading-family);">
+	    {{ page.title | escape }}
+	  </h1>
+      {% endif %}
+	  <div class="rte{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}">
+	    {{ page.content }}
+	  </div>
+  	</div>
+</div>
+{% endunless %}
+
+{% schema %}
+{
+  "name": "t:sections.main-page.name",
+  "tag": "section",
+  "class": "spaced-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "hide_page_title",
+      "label": "Hide Page Title",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_page_full_width",
+      "label": "Enable Page Full Width",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+        "type": "range",
+        "id": "padding_top_desk",
+        "label": "Padding Top (Desktop)",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "default": 0
+    },
+    {
+        "type": "range",
+        "id": "padding_bottom_desk",
+        "label": "Padding Bottom (Desktop)",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "default": 0
+    },
+    {
+        "type": "range",
+        "id": "padding_top_mbl",
+        "label": "Padding Top (Mobile)",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "default": 0
+    },
+    {
+        "type": "range",
+        "id": "padding_bottom_mbl",
+        "label": "Padding Bottom (Mobile)",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "default": 0
+    },
+  ]
+}
+{% endschema %}
+
+

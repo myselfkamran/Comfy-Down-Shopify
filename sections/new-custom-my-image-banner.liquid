@@ -1,0 +1,364 @@
+{% stylesheet %}
+.innovation-craft-wrapper {
+  padding-top: var(--pt-desktop);
+  padding-bottom: var(--pb-desktop);
+}
+@media screen and (max-width: 1024px) {
+  .innovation-craft-wrapper h2 {
+    font-size: 36px !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  .innovation-craft-wrapper {
+    padding-top: var(--pt-mobile);
+    padding-bottom: var(--pb-mobile);
+  }
+  .innovation-craft-wrapper h2 {
+    font-size: var(--title-size-mobile) !important;
+  }
+  .innovation-craft-wrapper p.desc {
+    font-size: var(--desc-size-mobile);
+  }
+}
+
+.innovation-craft-wrapper .container {
+  margin: 0 auto;
+}
+
+.innovation-craft-wrapper .text-container {
+  text-align: center;
+  /* max-width: 800px; */
+  /* margin: 0 auto; */
+}
+
+.innovation-craft-wrapper h2 {
+  color: var(--title-color);
+  font-size: var(--title-size-desktop);
+  font-weight: var(--title-weight);
+  margin: 0;
+  margin-bottom: var(--title-mb);
+  line-height: 1.2;
+}
+
+.innovation-craft-wrapper p.desc {
+  color: var(--desc-color);
+  font-size: var(--desc-size-desktop);
+  font-weight: var(--desc-weight);
+  margin: 0;
+  margin-bottom: var(--desc-mb);
+}
+
+.innovation-craft-wrapper .content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.innovation-craft-wrapper .image-block img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.innovation-craft-wrapper .blocks-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.innovation-craft-wrapper .block-item {
+  display: flex;
+  gap: 16px;
+  align-items: cen;
+}
+
+.innovation-craft-wrapper .icon-wrapper {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.innovation-craft-wrapper .icon-wrapper img {
+  display: block;
+  filter: none;
+}
+
+@media screen and (min-width: 769px) {
+  .innovation-craft-wrapper .content-wrapper {
+    flex-direction: row;
+    align-items: center;
+    gap: 60px;
+  }
+  .innovation-craft-wrapper .blocks-wrapper {
+    flex: 0 0 46%;
+    max-width: 46%;
+    gap: 64px;
+  }
+  .innovation-craft-wrapper .block-item {
+    gap: 20px;
+  }
+  .innovation-craft-wrapper .image-block {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+{% endstylesheet %}
+
+<div class="innovation-craft-wrapper"
+  style="
+    --pt-desktop: {{ section.settings.padding_top_desktop }}px;
+    --pb-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --pt-mobile: {{ section.settings.padding_top_mobile }}px;
+    --pb-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --title-size-mobile: {{ section.settings.title_font_size_mobile }}px;
+    --desc-size-mobile: {{ section.settings.desc_font_size_mobile }}px;
+    --title-size-desktop: {{ section.settings.title_font_size_desktop }}px;
+    --desc-size-desktop: {{ section.settings.desc_font_size_desktop }}px;
+    --title-weight: {{ section.settings.title_font_weight }};
+    --desc-weight: {{ section.settings.desc_font_weight }};
+    --title-mb: {{ section.settings.title_margin_bottom }}px;
+    --desc-mb: {{ section.settings.desc_margin_bottom }}px;
+    --title-color: {{ section.settings.title_color }};
+    --desc-color: {{ section.settings.desc_color }};
+  ">
+  <div class="container" {% if section.settings.enable_max_width %}style="max-width: {{ section.settings.max_width }}px;"{% endif %}>
+    <div class="text-container">
+      <h2>{{ section.settings.section_title }}</h2>
+      <p class="desc">{{ section.settings.section_description }}</p>
+    </div>
+
+    <div class="content-wrapper">
+      {% if section.settings.section_image %}
+        <a class="image-block image-zoom" title="{{ preview_img.alt | default: shop.name | escape }}">
+          <img src="{{ section.settings.section_image | image_url: width: 800 }}" alt="Craft Image" loading="lazy">
+        </a>
+      {% endif %}
+
+      <div class="blocks-wrapper">
+        {% for block in section.blocks %}
+          <div class="block-item">
+            <div class="icon-wrapper">
+              {% if block.settings.svg_icon %}
+                <img src="{{ block.settings.svg_icon | image_url }}" alt="Icon" style="width: {{ block.settings.svg_width }}px;">
+              {% endif %}
+            </div>
+            <p style="color: {{ block.settings.block_text_color }}; font-size: {{ block.settings.block_text_size }}px; margin: 0;">
+              {{ block.settings.block_text }}
+            </p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom My Image Banner",
+  "tag": "section",
+  "class": "innovation-craft-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_max_width",
+      "label": "Enable Max Width Container",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max Width (px)",
+      "default": 1200,
+      "min": 800,
+      "max": 1600,
+      "step": 50
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "At the ComfyDown studio, innovative technology clasps hands with age-old craft secrets."
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_desktop",
+      "label": "Title Font Size (Desktop px)",
+      "default": 36,
+      "min": 20,
+      "max": 60
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_mobile",
+      "label": "Title Font Size (Mobile px)",
+      "default": 24,
+      "min": 14,
+      "max": 40
+    },
+    {
+      "type": "select",
+      "id": "title_font_weight",
+      "label": "Title Font Weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "range",
+      "id": "title_margin_bottom",
+      "label": "Title Margin Bottom (px)",
+      "default": 20,
+      "min": 0,
+      "max": 100
+    },
+    {
+      "type": "text",
+      "id": "section_description",
+      "label": "Section Description",
+      "default": "Each piece we create is precision-engineered to comfort, pamper and refresh."
+    },
+    {
+      "type": "color",
+      "id": "desc_color",
+      "label": "Description Color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "desc_font_size_desktop",
+      "label": "Description Font Size (Desktop px)",
+      "default": 18,
+      "min": 10,
+      "max": 32
+    },
+    {
+      "type": "range",
+      "id": "desc_font_size_mobile",
+      "label": "Description Font Size (Mobile px)",
+      "default": 14,
+      "min": 10,
+      "max": 24
+    },
+    {
+      "type": "select",
+      "id": "desc_font_weight",
+      "label": "Description Font Weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "desc_margin_bottom",
+      "label": "Description Margin Bottom (px)",
+      "default": 40,
+      "min": 0,
+      "max": 100
+    },
+    {
+      "type": "image_picker",
+      "id": "section_image",
+      "label": "Section Image"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding Top (Desktop px)",
+      "default": 60,
+      "min": 0,
+      "max": 120,
+      "step": 2,
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding Bottom (Desktop px)",
+      "default": 60,
+      "min": 0,
+      "max": 120,
+      "step": 2,
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding Top (Mobile px)",
+      "default": 36,
+      "step": 2,
+      "min": 0,
+      "max": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding Bottom (Mobile px)",
+      "default": 36,
+      "step": 2,
+      "min": 0,
+      "max": 100
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "svg_icon",
+          "label": "SVG Icon"
+        },
+        {
+          "type": "range",
+          "id": "svg_width",
+          "label": "SVG Width (px)",
+          "default": 56,
+          "min": 20,
+          "max": 100
+        },
+        {
+          "type": "text",
+          "id": "block_text",
+          "label": "Block Text",
+          "default": "Sample text for feature block."
+        },
+        {
+          "type": "range",
+          "id": "block_text_size",
+          "label": "Block Text Size (px)",
+          "default": 16,
+          "min": 10,
+          "max": 24
+        },
+        {
+          "type": "color",
+          "id": "block_text_color",
+          "label": "Block Text Color",
+          "default": "#333333"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom My Image Banner",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

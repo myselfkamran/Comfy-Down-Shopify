@@ -1,0 +1,78 @@
+.contact-form{
+    margin: 22px 0 0 0;
+}
+
+.contact-form .form-message {
+    margin-bottom: 22px;
+}
+
+.contact-form .form-input{
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.contact-form .form-field + .form-field{
+    margin-top: 40px;
+}
+
+.contact-form .form-actions{
+    margin: 40px 0 0 0;
+}
+
+.contact-form .form-actions .button {
+    border-radius: 0;
+    margin-top: 5px;
+    /* width: 216px; */
+    display: block;
+    margin-left: 0;
+    margin-right: auto;
+    padding: 12px 44.5px;
+    width: fit-content;
+}
+
+.skin-3 .contact-form .form-actions .button{
+	border-radius: var(--btn-border-radius);
+    letter-spacing: .02em;
+}
+
+.skin-4 .contact-form .form-actions .button{
+    padding-top: calc(var(--btn-padding-top) + 5px);
+    padding-bottom: calc(var(--btn-padding-bottom) + 5px);
+}
+
+.skin-5 .contact-form .form-actions .button{
+    padding-top: calc(var(--btn-padding-top) + 10px);
+    padding-bottom: calc(var(--btn-padding-bottom) + 10px);
+}
+
+.skin-6 .contact-form .form-actions .button{
+	padding-top: calc(var(--btn-padding-top) + 4px);
+    padding-bottom: calc(var(--btn-padding-bottom) + 5px);
+}
+
+.contact-form textarea{
+    height: 141px;
+    max-height: 100%;
+    resize: none;
+}
+
+.red-asterisk {
+    color: #f1152f;
+    margin-left: 0;
+}
+@media screen and (min-width: 1024px) {
+  .contact-container .inner_container {
+    display: flex;
+    align-items: flex-start;
+    gap: 96px;
+  }
+  .contact-container .inner_container .comment {
+    margin-top: 0px !important;
+  }
+}
+.contact-container .inner_container .comment {
+  margin-top: 40px;
+}
+.contact-container .inner_container .form-field .form-input {
+  border-radius: 0;
+}
