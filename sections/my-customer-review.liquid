@@ -1,0 +1,1330 @@
+<link rel="stylesheet" href="{{ 'component-review-block.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'component-review-block.css' | asset_url | stylesheet_tag }}</noscript>
+{%- if section.blocks.size > 0 -%}
+    <style>
+    {%- liquid
+        assign review_style = section.settings.section_style
+        assign review_bg = section.settings.review_bg
+        assign review_bg_gradient = section.settings.review_bg_gradient
+        assign review_bg_image = section.settings.review_bg_image
+        assign color_title = section.settings.color_title
+        assign fontsize_title = section.settings.fontsize_title
+        assign fontsize_title_mb = section.settings.fontsize_title_mb
+        assign color_des = section.settings.color_des
+        assign fontsize_des = section.settings.fontsize_des
+        assign mg_top_desktop = section.settings.mg_top_desktop
+        assign mg_top_tablet = section.settings.mg_top_tablet
+        assign mg_top_mobile = section.settings.mg_top_mobile
+        assign mg_bottom_desktop = section.settings.mg_bottom_desktop
+        assign mg_bottom_tablet = section.settings.mg_bottom_tablet
+        assign mg_bottom_mobile = section.settings.mg_bottom_mobile
+        assign padding_full_width = section.settings.padding_full_width
+        assign avatar_margin_bottom = section.settings.avatar_margin_bottom
+        assign color_heading = section.settings.color_heading
+        assign fontsize_heading = section.settings.fontsize_heading
+        assign heading_margin_bottom = section.settings.heading_margin_bottom
+        assign heading_font_weight = section.settings.heading_font_weight
+        assign color_sub_heading = section.settings.color_sub_heading
+        assign fontsize_sub_heading = section.settings.fontsize_sub_heading
+        assign sub_heading_margin_bottom = section.settings.sub_heading_margin_bottom
+        assign color_name = section.settings.color_name
+        assign fontsize_name = section.settings.fontsize_name
+        assign name_margin_bottom = section.settings.name_margin_bottom
+        assign color_date = section.settings.color_date
+        assign fontsize_date = section.settings.fontsize_date
+        assign color_body = section.settings.color_body
+        assign fontsize_body = section.settings.fontsize_body
+        assign body_margin_bottom = section.settings.body_margin_bottom
+        assign color_icon = section.settings.color_icon
+        assign bg_color_icon = section.settings.bg_color_icon
+        assign star_margin_bottom = section.settings.star_margin_bottom
+        assign star_color = section.settings.star_color
+        assign show_arrow = section.settings.show_arrow
+    -%}
+    .section-block-{{section.id}} .heading {color: {{ color_heading }};font-size: {{ fontsize_heading | append: 'px' }};line-height: {{ fontsize_heading | plus: 8 | append: 'px' }};margin-bottom: {{ heading_margin_bottom | append: 'px' }};font-weight: {{ heading_font_weight }};display: block}
+    .section-block-{{section.id}} .sub_heading {color: {{ color_sub_heading }};font-size: {{ fontsize_sub_heading | append: 'px' }};line-height: {{ fontsize_heading | plus: 11 | append: 'px' }};margin-bottom: {{ sub_heading_margin_bottom | append: 'px' }}}
+    .section-block-{{section.id}} .name {color: {{ color_name }};font-size: {{ fontsize_name | append: 'px' }};margin-bottom: {{ name_margin_bottom | append: 'px' }}}
+    .section-block-{{section.id}} .date {color: {{ color_date }};font-size: {{ fontsize_date | append: 'px' }}}
+    .section-block-{{section.id}} .customer-review__content {color: {{ color_body }};{%- if section.settings.block_layout_style == 'layout1' -%}line-height: {{ fontsize_body | plus: 8 | append: 'px' }};{%- endif -%}font-size: {{ fontsize_body | append: 'px' }};margin-bottom: {{ body_margin_bottom | append: 'px' }}}
+    .section-block-{{section.id}} .review__item-image {margin-bottom: {{ avatar_margin_bottom | append: 'px' }} !important}
+    .section-block-{{section.id}} .star-reviews {margin-bottom: {{ star_margin_bottom | append: 'px' }}}
+    .section-block-{{section.id}} .customer-review__icon {color: {{ color_icon }};background-color: {{ bg_color_icon }}}
+    .section-block-{{section.id}} .customer-review__icon svg {color: {{ color_icon }}}
+    .section-block-{{ section.id }} .halo-block-header .title .text {width: 500px}
+    .section-block-{{ section.id }} .star-reviews .star--icon {font-size: {{section.settings.star_font_size | append: 'px' }}}
+    {%- if section.settings.block_layout_style == 'layout2' -%}
+        .customer-review-block .customer-review-slide {padding-bottom: 22px}
+        {%- unless show_arrow -%}
+            .section-block-{{ section.id }} .customer-review-slide .slick-arrow {display: none !important}
+        {%- endunless -%} 
+    {%- endif -%}
+    .section-block-{{section.id}} .customer-review__item .star-reviews .star--icon::before {color: {% if star_color != blank and star_color != 'rgba(0,0,0,0)' %}{{ star_color }}{% endif %}} 
+    .section-block-{{section.id}} .slick-dots {bottom: -4px}
+    .customer-review-slide.column-1:not(.slick-slider) .halo-item:nth-child(n + 2) {display: none;}
+    @media (min-width: 1200px) {
+        .section-block-{{section.id}} {padding-top: {{ mg_top_desktop | append: 'px' }};padding-bottom: {{ mg_bottom_desktop | append: 'px' }}}
+        .customer-review-slide.column-3 .halo-item:nth-child(n+4){display: none}
+        .customer-review-slide.column-3.slick-slider .halo-item:nth-child(n+4){display: block}
+        .customer-review-slide.column-2:not(.slick-slider) .halo-item:nth-child(n + 3) {display: none;}
+    }
+    @media (min-width: 1025px) {
+        {%- if section.settings.container == 'fullwidth' -%}
+            .section-block-{{section.id}} .container-full {padding-left: {{ padding_full_width | append: 'px' }};padding-right: {{ padding_full_width | append: 'px' }}}
+        {%- endif -%}
+        {%- if section.settings.block_layout_style == 'layout2' -%}
+            .customer-review-block .slick-arrow{top: calc(50% - 105px)}
+        {%- endif -%}
+    }
+    @media (min-width: 768px) and (max-width: 1199px) {.section-block-{{section.id}} {padding-top: {{ mg_top_tablet | append: 'px' }};padding-bottom: {{ mg_bottom_tablet | append: 'px' }}}}
+    {%- if section.settings.section_style == 'style_1' -%}
+    @media (min-width: 821px) and (max-width: 1199px) {
+        .customer-review-slide.column-2:not(.slick-slider) .halo-item:nth-child(n + 3),
+        .customer-review-slide.column-3:not(.slick-slider) .halo-item:nth-child(n + 3) {display: none;}
+    }
+    {%- endif -%}
+    @media (max-width: 820px) {
+        .customer-review-slide.column-2 .halo-item,
+        .customer-review-slide.column-3 .halo-item {width: 100%}
+        {%- if section.settings.section_style == 'style_1' -%}
+        .customer-review-slide.column-2:not(.slick-slider) .halo-item:nth-child(n + 2),
+        .customer-review-slide.column-3:not(.slick-slider) .halo-item:nth-child(n + 2) {display: none;}
+        {%- endif -%}
+    }
+
+    {%- if review_bg_image != blank -%}
+    @media (max-width: 1024px) {.section-block-{{section.id}}{background-position: center top}}
+    {%- endif -%}
+    @media (max-width: 1024px) {
+      .section-block-{{section.id}} .halo-block-header .title {font-size: 32px !important}
+    }
+    @media (max-width: 767px) {
+        .section-block-{{section.id}} {padding-top: {{ mg_top_mobile | append: 'px' }};padding-bottom: {{ mg_bottom_mobile | append: 'px' }}}
+        .section-block-{{section.id}} .halo-block-header .title {font-size: {{ fontsize_title_mb | append: 'px'  }} !important}
+    }
+    .section-block-{{section.id}} .customer-review__content {
+      font-size: 16px;
+    }
+    {%- if review_bg_image != blank -%}
+        .section-block-{{section.id}}{background: url({{ review_bg_image | img_url: '1920x' }});background-repeat: repeat-x;background-size: cover}
+        .section-block-{{section.id}} .halo-block-header .title .text {background-color: transparent}
+    {%- else -%}
+        .section-block-{{section.id}},
+        .section-block-{{section.id}} .halo-block-header .title .text {background: {% if review_bg_gradient != blank %}{{ review_bg_gradient }}{% else %}{{ review_bg }}{% endif %}}
+    {%- endif -%}
+    .section-block-{{section.id}} .halo-block-header .title {color: {{ color_title }};font-size: {{ fontsize_title | append: 'px'  }}}
+    .section-block-{{section.id}} .halo-block-header .title .text {padding: 0}
+    .section-block-{{section.id}} .halo-block-header .title:before {display: none}
+    .section-block-{{section.id}} .halo-block-header .subtext-review {color: {{ color_des }};font-size: {{ fontsize_des | append: 'px'  }}}
+
+    .section-block-{{section.id}} .name {
+        margin-bottom: {% if  section.settings.mg_bottom_title > 50 %}{{ section.settings.mg_bottom_title | minus: 20 | append: 'px' }}{% else %} {{ section.settings.mg_bottom_title | append: 'px' }}{% endif %}
+    }
+    .section-block-{{section.id}} .container-full {
+        {%- if padding_full_width > 10 -%}
+            padding-left: 10px;padding-right: 10px;
+        {%- else -%}
+            padding-left: {{ padding_full_width | append: 'px' }};padding-right: {{ padding_full_width | append: 'px' }}
+        {%- endif -%}
+    }
+    .customer-review-block .halo-block-header {
+      max-width: 100%;
+      margin: 0 0 35px;
+    }
+</style>
+<div class="customer-review-block {{ section.settings.section-class }} {% if section.settings.center_mode %} customer-review--center{% endif %} section-block-{{section.id}} {{ review_style }}{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}" id="customer-review-{{section.id}}" {% if section.blocks.size > 1 and review_style == 'style_1' or review_style == 'style_3' %}data-loader-script="{{ 'halo.slide-my-customer-review.js' | asset_url }}"{% endif %} data-check="{{ section.settings.show_arrow }}">
+    {%- if review_style == 'style_2' -%}
+        <div class="customer-review-block-wrapper {% if section.settings.container == 'fullwidth' %}container-full{% elsif section.settings.container == '1170' %}container-1170{% elsif section.settings.container == '1770' %}container-1770{% else %}container{% endif %}" style="--scrollbar-width: {{ section.settings.scroll_height | append: 'px' }};--scrollbar-track-color: {% if section.settings.scroll_track_bg != blank and section.settings.scroll_track_bg != 'rgba(0,0,0,0)' %}{{ section.settings.scroll_track_bg }}{% endif %};--scrollbar-thumb-color: {% if section.settings.scroll_thumb_color != blank and section.settings.scroll_thumb_color != 'rgba(0,0,0,0)' %}{{ section.settings.scroll_thumb_color }}{% endif %};--scrollbar-thumb-hover-color: {% if section.settings.scroll_thumb_hover_color != blank and section.settings.scroll_thumb_hover_color != 'rgba(0,0,0,0)' %}{{ section.settings.scroll_thumb_hover_color }}{% endif %}">
+    {%- endif -%}   
+    {%- unless review_style == 'style_2' -%}
+        <div class="{% if section.settings.container == 'fullwidth' %}container-full{% elsif section.settings.container == '1170' %}container-1170{% elsif section.settings.container == '1770' %}container-1770{% else %}container{% endif %}{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}">
+    {%- else -%}
+        <div class="customer-review__left">
+    {%- endunless -%}    
+        {%- if section.settings.review_title != blank -%}
+            <div class="halo-block-header text-{{ section.settings.title_align }}{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}">
+                <h3 class="title" style=" font-weight: {{ section.settings.title_weight }}; --margin-bottom-title: {{ section.settings.mg_bottom_title | append: 'px' }};--margin-bottom-title-mb:{% if  section.settings.mg_bottom_title > 50 %}{{ section.settings.mg_bottom_title | minus: 20 | append: 'px' }}{% else %} {{ section.settings.mg_bottom_title | append: 'px' }}{% endif %}"><span class="text">{{ section.settings.review_title }}</span></h3>
+                {%- if section.settings.review_des != blank -%}
+                    <div class="subtext-review" style="--margin-bottom-des: {{ section.settings.margin_bottom_des | append: 'px' }}">{{ section.settings.review_des }}</div>        
+                {%- endif -%}
+            </div>
+        {%- endif -%}
+    </div> 
+    
+    {%- unless review_style == 'style_2' -%}
+        <div class="{% if section.settings.container == 'fullwidth' %}container-full{% elsif section.settings.container == '1170' %}container-1170{% elsif section.settings.container == '1770' %}container-1770{% else %}container{% endif %}{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}">
+    
+    {%- else -%}
+        {%- if review_style == 'style_2' -%}
+            <product-scroller>
+        {%- endif -%}
+        <div class="customer-review__right"{% if review_style == 'style_2' %} data-drag-container{% endif %}>
+    {%- endunless -%}  
+{%- if review_style == 'style_4' -%}
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+  <style>
+    .customer-review-block .swiper-container.mySwiper {
+      overflow: hidden;
+    }
+
+    .customer-review-block .swiper-container.mySwiper .halo-item.customer-review__item.swiper-slide {
+      padding: 0;
+    }
+    
+    .customer-review-block .slider-control-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 2.5rem;
+      gap: 2rem;
+    }
+
+    .customer-review-block .slider-control-bar .swiper-pagination.swiper-pagination-progressbar.swiper-pagination-horizontal {
+      width: 90%;
+      background-color: {{ section.settings.bar_bg_color }};
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .customer-review-block .slider-control-bar .swiper-pagination.swiper-pagination-progressbar.swiper-pagination-horizontal .swiper-pagination-progressbar-fill {
+      background-color: {{ section.settings.bar_fill_bg_color }};
+      transition: 0.4s ease-in-out;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 2px;
+    }
+
+    .customer-review-block .arrow-group {
+      width: fit-content;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .customer-review-block .arrow-btn {
+      border: 1px solid {{ section.settings.arrow_color }};
+      border-radius: 50%;
+      padding: 10px;
+      line-height: 0;
+      letter-spacing: normal;
+      background: none;
+      cursor: pointer;
+    }
+    .customer-review-block .arrow-btn:hover {
+      border: 1px solid {{ section.settings.hover_arrow_color }};
+      background: {{ section.settings.hover_arrow_bg_color }};
+    }
+    .customer-review-block .arrow-btn:hover svg path {
+      stroke: {{ section.settings.hover_arrow_color }};
+    }
+
+    .customer-review-block .swiper-pagination.swiper-pagination-progressbar.swiper-pagination-horizontal,
+    .customer-review-block .swiper-button-next,
+    .customer-review-block .swiper-button-prev {
+      position: relative;
+    }
+
+    .customer-review-block .swiper-button-next,
+    .customer-review-block .swiper-button-prev {
+      position: relative;
+      width: unset;
+      height: unset;
+      margin-top: unset;
+      top: unset;
+      bottom: unset;
+      left: unset;
+      right: unset;
+    }
+    
+    .customer-review-block .swiper-button-next:after,
+    .customer-review-block .swiper-button-prev:after {
+      content: none;
+    }
+
+    .customer-review-block .arrow-btn svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+    
+    .customer-review-block .arrow-btn svg path {
+      stroke: {{ section.settings.arrow_color }};
+    }
+
+  </style>
+
+    <div class="swiper-container mySwiper">
+      <div class="swiper-wrapper">
+          {%- for block in section.blocks -%}
+            {%- if section.settings.block_layout_style == 'layout1' -%}
+              <div class="halo-item customer-review__item" {% if review_style == 'style_2' %}data-drag-item{% endif %}>
+                  <div class="review_flex">
+                      <div class="customer-review__item--left{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}"{% if settings.banner_animation == 'effect_fade_up' %} data-cascade style="--animation-order: 1;"{% endif %}>
+                          {%- if block.settings.heading != blank -%}
+                              <span class="heading">{{ block.settings.heading }}</span>
+                          {%- endif -%}
+                          {%- if block.settings.sub_heading != blank -%}
+                              <div class="sub_heading">{{ block.settings.sub_heading }}</div>
+                          {%- endif -%}
+                          {%- if block.settings.name != blank or block.settings.date != blank -%}
+                              <div class="customer-review__info">
+                                  <span class="customer-review__icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-edit" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="svg-inline--fa fa-user-edit fa-w-20 fa-2x"><path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h274.9c-2.4-6.8-3.4-14-2.6-21.3l6.8-60.9 1.2-11.1 7.9-7.9 77.3-77.3c-24.5-27.7-60-45.5-99.9-45.5zm45.3 145.3l-6.8 61c-1.1 10.2 7.5 18.8 17.6 17.6l60.9-6.8 137.9-137.9-71.7-71.7-137.9 137.8zM633 268.9L595.1 231c-9.3-9.3-24.5-9.3-33.8 0l-37.8 37.8-4.1 4.1 71.8 71.7 41.8-41.8c9.3-9.4 9.3-24.5 0-33.9z" class=""></path></svg></span>
+                                  <span class="customer-review__name"><span class="name">{{ block.settings.name }}</span><span class="date">{{ block.settings.date }}</span></span>
+                              </div>
+                          {% endif %}
+                      </div>
+                      <div class="customer-review__item--right{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}"{% if settings.banner_animation == 'effect_fade_up' %} data-cascade style="--animation-order: 1;"{% endif %}>
+                          {%- if block.settings.body != blank -%}
+                          <div class="customer-review__content">{{ block.settings.body }}</div>
+                          {%- endif -%}
+                          <div class="star-reviews">
+                              {%- assign star_number = block.settings.rating | remove: 'star' | plus: 0 -%}
+                              {%- for i in (1..5) -%}
+                              <span class="star--icon {% if i > star_number %}star-empty{% endif %}"></span>
+                              {%- endfor -%}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              {%- else -%}
+              <div class="halo-item customer-review__item swiper-slide {% if review_style == 'style_1' %}text-center{% elsif review_style == 'style_2' %}text-left{% endif %}{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}" {% if review_style == 'style_2' %}data-drag-item{% endif %}{% if settings.banner_animation == 'effect_fade_up' %} style="--animation-order: {{ forloop.index }};"{% endif %}>
+                  {%- if review_style == 'style_3' -%}
+                      <div class="star-reviews">
+                          {%- assign star_number = block.settings.rating | remove: 'star' | plus: 0 -%}
+                          {%- for i in (1..5) -%}
+                          <span class="star--icon {% if i > star_number %}star-empty{% endif %}"></span>
+                          {%- endfor -%}
+                      </div>
+                  {%- endif -%}
+                  {%- unless review_style == 'style_3' -%}
+                      {%- if section.settings.show_avatar -%}
+                          <div class="review__item-image" style="max-width: {{block.settings.avatar.width}}px; margin: 0 auto;">
+                              {%- if block.settings.avatar -%}
+                                  {%- assign img_size = '250x' -%}
+                                  {%- assign preview_img = block.settings.avatar -%}
+                                  <div class="adaptive_height image-zoom" style="padding-top: {{ 1 | divided_by: preview_img.aspect_ratio | times: 100 }}%;">
+                                      <img {% render 'lazyload',preview_img: preview_img %} />
+                                      {%- if settings.enable_lazyload -%}<span class="data-lazy-loading"></span>{%- endif -%}
+                                  </div>
+                              {%- endif -%}
+                          </div>
+                      {%- endif -%}
+                  {%- endunless -%}
+                  <div class="review__item-content{% unless review_style == 'style_4' %}{% if section.settings.center_mode %} maw-780{% else %} maw-480{% endif %}m-lr-auto{% endunless %} ">
+                      {%- if block.settings.sub_heading != blank -%}
+                          <div class="sub_heading">{{ block.settings.sub_heading }}</div>
+                      {%- endif -%}
+                      {%- if section.settings.start_position == 'above_title' -%}
+                          <div class="star-reviews">
+                              {%- assign star_number = block.settings.rating | remove: 'star' | plus: 0 -%}
+                              {%- for i in (1..5) -%}
+                              <span class="star--icon {% if i > star_number %}star-empty{% endif %}"></span>
+                              {%- endfor -%}
+                          </div>
+                      {%- endif -%}
+                      {%- if block.settings.heading != blank -%}
+                          <span class="heading">{{ block.settings.heading }}</span>
+                      {%- endif -%}
+                      {%- if section.settings.start_position == 'below_title' -%}
+                          {%- unless review_style == 'style_3' -%}
+                          <div class="star-reviews">
+                              {%- assign star_number = block.settings.rating | remove: 'star' | plus: 0 -%}
+                              {%- for i in (1..5) -%}
+                              <span class="star--icon {% if i > star_number %}star-empty{% endif %}"></span>
+                              {%- endfor -%}
+                          </div>
+                          {%- endunless -%}
+                      {%- endif -%}
+                      {%- if review_style == 'style_3' -%}
+                          {%- if section.settings.show_avatar -%}
+                              <div class="content__wrapper">
+                                  <div class="review__item-image" style="width: {{block.settings.avatar.width}}px;">
+                                      {%- if block.settings.avatar -%}
+                                          {%- assign img_size = '250x' -%}
+                                          {%- assign preview_img = block.settings.avatar -%}
+                                          <div class="adaptive_height image-zoom" style="padding-top: {{ 1 | divided_by: preview_img.aspect_ratio | times: 100 }}%;">
+                                              <img {% render 'lazyload',preview_img: preview_img %} />
+                                              {%- if settings.enable_lazyload -%}<span class="data-lazy-loading"></span>{%- endif -%}
+                                          </div>
+                                      {%- endif -%}
+                                  </div>
+                                  <div class="review__content_right">
+                                      {%- if block.settings.name != blank -%}
+                                          <div class="name">{{ block.settings.name }}</div>
+                                      {%- endif -%}
+                                      {%- if block.settings.body != blank -%}
+                                          <div class="customer-review__content">{{ block.settings.body }}</div>
+                                      {%- endif -%}
+                                      {%- if block.settings.date != blank -%}
+                                          <div class="date">{{ block.settings.date }}</div>
+                                      {%- endif -%}
+                                  </div>
+                              </div>
+                          {%- endif -%}
+                      {%- endif -%}
+
+                      {%- unless review_style == 'style_3' -%}
+                          {% if section.settings.section_style == 'style_4' %}
+                            <svg class="qoutes" xmlns="http://www.w3.org/2000/svg" width="48" height="40" viewBox="0 0 48 40" fill="none">
+                              <path d="M47.3868 5.57491C43.1127 6.31823 39.9071 8.17654 37.77 11.1498C35.7259 14.0302 34.6109 17.561 34.4251 21.7422C34.8897 21.5563 35.3542 21.417 35.8188 21.324C36.3763 21.2311 36.9803 21.1847 37.6307 21.1847C40.3252 21.1847 42.4158 22.0674 43.9024 23.8328C45.482 25.5052 46.2718 27.6887 46.2718 30.3833C46.2718 33.1707 45.4356 35.4936 43.7631 37.3519C42.0906 39.1173 39.8142 40 36.9338 40C34.1464 40 31.8235 38.9779 29.9652 36.9338C28.1069 34.8897 27.1777 31.8699 27.1777 27.8746C27.1777 21.5563 27.9675 16.446 29.547 12.5436C31.2195 8.5482 33.5889 5.57491 36.6551 3.62369C39.7213 1.57955 43.2985 0.371656 47.3868 0V5.57491ZM20.3484 5.57491C15.9814 6.31823 12.7758 8.17654 10.7317 11.1498C8.68757 14.0302 7.57259 17.561 7.38676 21.7422C7.75842 21.5563 8.17654 21.417 8.64112 21.324C9.19861 21.2311 9.80256 21.1847 10.453 21.1847C13.1475 21.1847 15.2846 22.0674 16.8641 23.8328C18.4437 25.5052 19.2335 27.6887 19.2335 30.3833C19.2335 33.1707 18.3508 35.4936 16.5854 37.3519C14.9129 39.1173 12.6365 40 9.7561 40C6.96864 40 4.64576 38.9779 2.78746 36.9338C0.929152 34.8897 0 31.8699 0 27.8746C0 21.5563 0.78978 16.446 2.36934 12.5436C4.04181 8.5482 6.41115 5.57491 9.47736 3.62369C12.5436 1.57955 16.1673 0.371656 20.3484 0V5.57491Z" fill="#D9C5A4"/>
+                            </svg>
+                          {% endif %}
+                          {%- if block.settings.body != blank -%}
+                              <div class="customer-review__content truncate-multiline">{{ block.settings.body }}</div>
+                          {%- endif -%}
+                          {%- if block.settings.name != blank -%}
+                            <div class="name">    
+                                {% if section.settings.section_style == 'style_4' %}
+                                  <style>
+                                    .halo-item.customer-review__item.swiper-slide .review__item-content .qoutes {
+                                      margin-bottom: 24px
+                                    }
+                                    .halo-item.customer-review__item.swiper-slide .review__item-content {
+                                      padding: 32px 40px;
+                                      background: {{ section.settings.review_block_bg }};
+                                      max-height: 100%;
+                                      border-radius: 4px;
+                                    }
+                                    .halo-item.customer-review__item.swiper-slide .review__item-content .name {
+                                      padding-left: 0;
+                                      border-left: 0;
+                                      display: flex;
+                                      align-items: center;
+                                      gap: 10px;
+                                      line-height: 1;
+                                      letter-spacing: normal;
+                                    }
+                                    .halo-item.customer-review__item.swiper-slide .review__item-content .name svg path {
+                                      fill: {{ section.settings.color_name }};
+                                    }
+                                  </style>
+                                
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                                  <path d="M0.751044 14.1204C1.76276 13.4181 2.8192 12.9619 3.92917 12.7233C4.24305 12.7745 4.54175 12.8789 4.79478 13.0755C4.80917 13.0866 4.82471 13.0668 4.81261 13.0542C4.68955 12.9273 4.52615 12.7768 4.34275 12.645C4.3835 12.6383 4.42433 12.6325 4.46528 12.6263C4.51693 12.6444 4.56891 12.6626 4.62009 12.6846C4.80989 12.7662 4.9881 12.8647 5.14912 12.9954C5.46228 13.2496 5.73185 13.5681 5.92751 13.9201C5.94593 13.9534 5.99644 13.9236 5.98474 13.8898C5.84148 13.4725 5.62252 13.1199 5.28998 12.8272C5.20248 12.7502 5.09299 12.6546 4.97215 12.564C5.0122 12.5603 5.05216 12.5556 5.09241 12.5524C5.35846 12.7612 5.68954 12.8941 5.9304 13.1542C6.23638 13.4846 6.45337 13.8681 6.59318 14.2956C6.59846 14.3116 6.62494 14.3061 6.62231 14.289C6.55872 13.8817 6.41518 13.4944 6.18427 13.1546C6.71911 13.6472 7.11736 14.3291 7.55692 14.9227C8.00091 15.5224 8.53103 16.0183 9.15158 16.4114C9.15684 16.4382 9.18397 16.451 9.20923 16.4481C9.33011 16.5227 9.4532 16.5949 9.58114 16.6616C11.4604 17.6432 13.7368 17.8225 15.8144 17.9808C19.7781 18.283 24.5445 17.7067 27.2921 14.4701C27.3182 14.4394 27.331 14.4074 27.335 14.3759C27.3503 14.3675 27.3658 14.36 27.381 14.3515C27.5942 14.233 27.4045 13.8825 27.1817 13.9747C27.1756 13.9772 27.1695 13.9795 27.1636 13.9821C27.1602 13.9816 27.1579 13.9797 27.1542 13.9796C26.1207 13.8938 25.09 13.9047 24.0602 13.749C23.0302 13.5933 22.0171 13.3493 21.018 13.0566C18.9305 12.4449 16.8494 11.811 14.7622 11.198C11.7424 10.3111 7.59203 8.93541 5.25183 11.9379C5.21613 11.9837 5.2031 12.032 5.20487 12.0778C5.06971 12.0833 4.93512 12.0914 4.80143 12.1025C6.07161 10.3843 7.95895 9.64673 10.0699 9.68425C10.102 9.68482 10.1021 9.6354 10.0726 9.62944C7.92924 9.20416 5.63158 10.3529 4.42176 12.0947C4.41031 12.1114 4.40454 12.1283 4.3999 12.1454C4.36159 12.1504 4.323 12.1541 4.2849 12.1597C4.41168 12.0039 4.49494 11.8196 4.61422 11.652C4.75391 11.4556 4.91273 11.2694 5.08117 11.0971C5.44962 10.7203 5.87972 10.4147 6.34157 10.1637C6.37409 10.146 6.3451 10.0919 6.31119 10.1065C5.81052 10.322 5.35893 10.6089 4.95588 10.9778C4.62128 11.2842 4.15084 11.7203 4.05064 12.1766C4.04879 12.185 4.04928 12.1924 4.04944 12.1998C3.85786 12.2337 3.66846 12.2743 3.4819 12.3232C3.38889 12.3286 3.29718 12.3489 3.20915 12.3927C3.20297 12.3958 3.19771 12.4003 3.19209 12.4043C2.24082 12.6995 1.37085 13.2086 0.64689 14.0065C0.586068 14.0732 0.679218 14.1703 0.751044 14.1204ZM12.2232 10.9112C11.5102 11.1558 10.8227 11.4871 10.0938 11.6964C9.21042 11.95 8.31919 12.0631 7.41905 12.2072C7.18076 12.1728 6.94223 12.1448 6.70387 12.1225C7.73732 11.8253 8.73841 11.2171 9.53044 10.5213C10.4083 10.5319 11.323 10.6906 12.2232 10.9112ZM13.5934 11.2893C12.1854 12.1359 10.6371 12.4692 9.00742 12.5153C8.72324 12.4474 8.43601 12.3853 8.14697 12.3302C8.78115 12.2429 9.4124 12.0931 10.0209 11.9272C10.8475 11.7018 11.7605 11.4447 12.497 10.9801C12.8671 11.0759 13.2337 11.1808 13.5934 11.2893ZM5.98775 12.5247C6.23703 12.528 6.48884 12.5399 6.74357 12.5611C6.83044 12.6951 6.91019 12.8326 6.96274 12.9932C7.01617 13.1564 7.04461 13.3255 7.06009 13.4961C6.74476 13.1016 6.40161 12.7525 5.98775 12.5247ZM7.17197 13.6391C7.21369 13.2927 7.1484 12.9047 6.98205 12.5847C7.03453 12.5903 7.08697 12.5953 7.13967 12.6015C7.37827 12.8966 7.6004 13.1806 7.74339 13.5689C7.87982 13.9398 7.91285 14.3062 7.929 14.6826C7.67545 14.3406 7.43137 13.9778 7.17197 13.6391ZM8.07898 14.8806C8.21979 14.1591 7.97351 13.2516 7.4864 12.6481C7.58994 12.6632 7.6934 12.6791 7.79635 12.6967C8.61065 13.6369 9.02084 14.6712 9.12336 15.8903C8.9887 15.795 8.85626 15.6954 8.72962 15.5865C8.49521 15.3851 8.28266 15.1421 8.07898 14.8806ZM9.26788 15.9895C9.26526 14.8194 8.81579 13.645 8.06703 12.7451C8.41718 12.8121 8.76397 12.8922 9.10839 12.9823C9.44357 13.3766 9.75462 13.7464 9.97183 14.2572C10.2314 14.8677 10.3256 15.5135 10.3429 16.1723C10.3436 16.1966 10.3811 16.1976 10.3852 16.1742C10.5543 15.1866 10.2855 13.9625 9.62675 13.1259C9.80025 13.1764 9.97329 13.229 10.1459 13.2837C10.5178 13.7726 10.8628 14.2436 11.0803 14.8633C11.3186 15.5416 11.3702 16.2059 11.3647 16.9032C10.6189 16.6984 9.90483 16.4112 9.26788 15.9895ZM17.0537 12.3514C16.9937 12.3812 16.9327 12.42 16.8658 12.4716C16.4191 12.8157 16.2531 13.255 15.4666 13.097C15.296 13.0627 15.145 12.9323 14.9715 12.8931C14.4863 12.7835 14.1563 13.0163 13.7085 13.1839C12.9294 13.4754 12.2511 13.3752 11.4742 13.1556C11.4638 13.1527 11.4612 13.1674 11.4689 13.1722C11.5859 13.2451 11.7064 13.3047 11.8298 13.3527C11.8248 13.356 11.8193 13.3588 11.8149 13.3629C11.6135 13.2913 11.4075 13.2196 11.1962 13.1489C12.9589 13.1063 14.7695 12.821 16.3838 12.1537C16.6073 12.2195 16.8306 12.2854 17.0537 12.3514ZM18.7601 12.8543C17.7292 13.1657 16.7176 13.4635 15.6286 13.5717C14.6724 13.6667 13.7215 13.6284 12.7759 13.5039C12.8455 13.5017 12.9153 13.4972 12.9857 13.4898C13.7331 13.4131 14.339 12.8578 15.1292 13.0779C15.4661 13.1716 15.745 13.4172 16.1138 13.3191C16.6145 13.1856 16.7368 12.5197 17.2427 12.4073C17.7483 12.5569 18.254 12.7064 18.7601 12.8543ZM21.0118 13.4889C19.9082 13.7561 18.8988 14.2169 17.7459 14.3577C16.5485 14.5038 15.4397 14.3134 14.2549 14.2205C14.2323 14.2187 14.214 14.2241 14.1981 14.2321C13.7614 14.0775 13.3261 13.9177 12.8908 13.7569C14.9268 13.9799 17.1683 13.7763 19.0022 12.9246C19.6707 13.1188 20.3405 13.307 21.0118 13.4889ZM13.0752 17.2501C12.5602 17.1744 12.0438 17.0795 11.5392 16.9501C11.6672 15.8063 11.3314 14.4172 10.6215 13.4391C10.8493 13.5156 11.0763 13.5946 11.3027 13.6756C11.4948 13.9281 11.7056 14.1605 11.8438 14.4687C12.0302 14.884 12.1082 15.3251 12.1648 15.7739C12.1691 15.8089 12.2252 15.8151 12.2295 15.7769C12.2912 15.2134 12.147 14.4336 11.8033 13.8573C11.9074 13.8957 12.0114 13.934 12.1154 13.9726C12.4039 14.4044 12.6705 14.834 12.8337 15.3542C13.0337 15.9907 13.0371 16.6046 13.0752 17.2501ZM13.1821 17.2652C13.4324 16.2963 13.1712 15.0698 12.6099 14.1575C12.8485 14.2471 13.087 14.3366 13.3255 14.4252C13.4239 14.5491 13.5204 14.675 13.594 14.8198C13.761 15.148 13.8688 15.4987 13.9196 15.8632C13.9244 15.8975 13.9824 15.905 13.9843 15.8663C14.004 15.4809 13.9392 14.9971 13.7614 14.5857C13.8515 14.6186 13.9417 14.6509 14.0317 14.6833C14.276 15.0652 14.5059 15.4446 14.6453 15.8914C14.8072 16.4105 14.846 16.9324 14.8831 17.4665C14.7579 17.4541 14.6334 17.4413 14.5098 17.4277C14.0756 17.3799 13.63 17.3289 13.1821 17.2652ZM15.0197 17.4794C15.1615 16.6234 14.9395 15.6161 14.4702 14.8369C14.9215 14.9904 15.3788 15.1307 15.8412 15.2565C16.2905 15.9807 16.4376 16.7004 16.376 17.5776C15.9166 17.5549 15.4633 17.5213 15.0197 17.4794ZM22.925 13.9711C22.6498 14.6956 22.0698 14.7858 21.3283 14.7488C21.1337 14.7391 20.9781 14.7218 20.8096 14.7577C21.4897 14.5478 22.1369 14.269 22.7226 13.9259C22.79 13.9413 22.8573 13.9563 22.925 13.9711ZM23.0677 15.7977C23.3171 16.0204 23.4604 16.3084 23.5141 16.6394C23.3992 16.685 23.2838 16.7293 23.1672 16.7712C23.1745 16.5931 23.0724 16.3874 22.9898 16.2508C22.8886 16.0834 22.7503 15.9546 22.5855 15.862C22.7467 15.8435 22.9074 15.8218 23.0677 15.7977ZM22.4495 15.8772C22.626 16.0027 22.7743 16.1669 22.8749 16.3591C22.9521 16.5067 22.9569 16.6756 23.0109 16.8251C22.9183 16.8568 22.8253 16.8881 22.7317 16.9176C22.6331 16.5272 22.2622 16.1535 21.9076 15.9237C22.0885 15.9112 22.2692 15.8963 22.4495 15.8772ZM21.7725 15.9327C21.945 16.0751 22.1109 16.227 22.2544 16.3987C22.3984 16.5709 22.4887 16.7748 22.6195 16.9519C22.4951 16.9898 22.37 17.026 22.244 17.0603C22.0361 16.6207 21.6957 16.2036 21.2723 15.9552C21.4393 15.9507 21.606 15.9427 21.7725 15.9327ZM20.1225 15.9448C20.2413 16.0514 20.3817 16.1437 20.4925 16.2531C20.7023 16.4602 20.8659 16.6688 20.9777 16.9443C20.9839 16.9598 21.0047 16.9508 21.0013 16.9356C20.9385 16.659 20.8402 16.3711 20.6736 16.1383C20.6318 16.0798 20.5805 16.0174 20.5237 15.9574C20.6728 15.9603 20.8219 15.9609 20.971 15.9598C21.4178 16.2923 21.7833 16.6271 22.0464 17.114C21.4756 17.2598 20.891 17.3684 20.3001 17.4467C20.3694 16.9311 20.1478 16.3488 19.7915 15.9274C19.9018 15.934 20.0121 15.9399 20.1225 15.9448ZM18.0542 15.2127C18.9337 15.188 19.8228 15.0489 20.6664 14.8021C20.6531 14.8074 20.6403 14.8116 20.6266 14.8174C20.371 14.9302 20.1777 15.1593 19.9274 15.2871C19.2779 15.6191 18.6867 15.3835 18.0542 15.2127ZM17.9212 15.2806C17.9247 15.2825 17.9284 15.2843 17.932 15.2861C17.8284 15.2673 17.7247 15.2485 17.6215 15.2277C17.6035 15.2231 17.5856 15.2192 17.5677 15.2146C17.6772 15.217 17.7867 15.2191 17.8969 15.2178C17.8903 15.2402 17.8971 15.2675 17.9212 15.2806ZM16.4813 17.583C16.6977 16.8506 16.5626 16.0158 16.1795 15.3462C16.3784 15.397 16.5784 15.4441 16.7788 15.4891C17.1095 15.9389 17.3791 16.3618 17.5137 16.9273C17.5214 16.9595 17.5726 16.9463 17.5696 16.9146C17.5275 16.4523 17.3898 15.9638 17.1306 15.565C17.3679 15.6141 17.6059 15.6598 17.8447 15.7004C17.8871 15.7561 17.9282 15.8128 17.9644 15.8736C18.0893 16.0832 18.1809 16.3131 18.2629 16.5423C18.2787 16.5865 18.3536 16.5721 18.3455 16.5236C18.3036 16.2744 18.2101 15.9886 18.0714 15.7363C18.5213 15.8073 18.9731 15.8626 19.4257 15.9003C19.6119 16.0959 19.7782 16.3006 19.8998 16.5578C20.0367 16.8475 20.0884 17.1552 20.1502 17.4647C18.93 17.6156 17.6859 17.6383 16.4813 17.583ZM23.6655 16.5786C23.6145 16.2616 23.4443 15.9803 23.1994 15.7772C24.3044 15.6006 25.3893 15.2903 26.4335 14.8235C25.6186 15.5864 24.6794 16.1581 23.6655 16.5786ZM21.5921 15.4611C22.5953 15.2443 23.559 14.8299 24.4266 14.2399C25.0414 14.3212 25.6586 14.3612 26.2629 14.3379C24.7348 14.9101 23.1964 15.3205 21.5921 15.4611ZM24.1132 14.1948C22.8713 15 21.4644 15.4276 20.0235 15.4818C20.4223 15.2544 20.7165 14.9146 21.2989 14.9103C21.7478 14.9068 22.021 15.0572 22.4485 14.8119C22.7705 14.6271 22.9549 14.3409 23.0494 13.9981C23.3998 14.0728 23.7554 14.1398 24.1132 14.1948ZM22.5363 13.8827C21.4893 14.3473 20.4457 14.7357 19.2968 14.8942C18.1581 15.0513 17.0523 14.9582 15.927 14.7997C15.7216 14.7388 15.5166 14.676 15.3124 14.6103C16.1778 14.6903 17.0966 14.6186 17.901 14.5091C18.9458 14.367 20.2167 14.1301 21.0907 13.5102C21.2815 13.5617 21.4718 13.6156 21.663 13.6654C21.9476 13.7399 22.2397 13.813 22.5363 13.8827ZM16.0526 12.0559C16.0799 12.0639 16.1071 12.0721 16.1345 12.0801C15.1996 12.3922 14.2912 12.692 13.2963 12.8162C12.3946 12.9287 11.5022 12.9873 10.6004 12.9565C10.403 12.8949 10.2026 12.8348 9.99939 12.7765C9.98149 12.7621 9.9647 12.7456 9.94651 12.7316C9.91171 12.7049 9.87004 12.7104 9.84007 12.7313C9.63282 12.6734 9.42319 12.6179 9.21138 12.5652C10.8215 12.6375 12.3943 12.1477 13.8026 11.3521C14.6056 11.5988 15.3696 11.8559 16.0526 12.0559ZM9.30459 10.5237C8.24726 11.1828 7.17893 11.6139 6.00995 12.0776C5.91016 12.0739 5.81047 12.0714 5.71124 12.0704C6.67248 10.9557 7.93649 10.5481 9.30459 10.5237Z" fill="#AA9980"/>
+                                </svg>
+                                {% endif %}
+                                {{ block.settings.name }}
+                            </div>
+                          {%- endif -%}
+                          {%- if block.settings.date != blank -%}
+                              <div class="date">{{ block.settings.date }}</div>
+                          {%- endif -%}
+                      {%- endunless -%}
+                  </div>
+              </div>
+            {%- endif -%}
+          {% endfor %}           
+      </div>
+    </div>
+
+    <div class="slider-control-bar">
+      <div class="swiper-pagination">
+      </div>
+      <div class="arrow-group">
+        <button class="arrow-btn swiper-button-prev" data-direction="left">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14" fill="none">
+            <g transform="scale(-1,1) translate(-18,0)">
+              <path d="M1 7H17M17 7L11 1M17 7L11 13" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+          </svg>
+        </button>
+        <button class="arrow-btn swiper-button-next" data-direction="right">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14" fill="none">
+            <path d="M1 7H17M17 7L11 1M17 7L11 13" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        pagination: {
+          el: ".swiper-pagination",
+          type: "progressbar",
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+          1024: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+        },
+      });
+  function setEqualHeight() {
+    const cards = document.querySelectorAll(".customer-review__content");
+    if (!cards.length) return;
+  
+    cards.forEach((card) => card.style.height = "auto");
+  
+    let maxHeight = 0;
+    cards.forEach((card) => {
+      const height = card.offsetHeight;
+      if (height > maxHeight) maxHeight = height;
+    });
+  
+    cards.forEach((card) => {
+      card.style.height = `${maxHeight}px`;
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    setEqualHeight();
+  
+    const resizeObserver = new ResizeObserver(setEqualHeight);
+    resizeObserver.observe(document.body); // or a wrapper div if more specific
+
+    const container = document.querySelector(".customer-review__content")?.parentElement;
+    if (container) resizeObserver.observe(container);
+  });
+  </script>
+  {%- endif -%}
+  {%- unless review_style == 'style_4' -%}
+    <div class="customer-review-slide halo-row column-{{ section.settings.review_rows }}" data-my-review-slider data-row="{{ section.settings.review_rows }}" data-center="{{ section.settings.center_mode }}"{% if review_style == 'style_2'%} data-drag-parent{% endif %} style="--count: {{ section.settings.review_rows }}">
+                {%- for block in section.blocks -%}
+                    {%- if section.settings.block_layout_style == 'layout1' -%}
+                    <div class="halo-item customer-review__item" {% if review_style == 'style_2' %}data-drag-item{% endif %}>
+                        <div class="review_flex">
+                            <div class="customer-review__item--left{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}"{% if settings.banner_animation == 'effect_fade_up' %} data-cascade style="--animation-order: 1;"{% endif %}>
+                                {%- if block.settings.heading != blank -%}
+                                    <span class="heading">{{ block.settings.heading }}</span>
+                                {%- endif -%}
+                                {%- if block.settings.sub_heading != blank -%}
+                                    <div class="sub_heading">{{ block.settings.sub_heading }}</div>
+                                {%- endif -%}
+                                {%- if block.settings.name != blank or block.settings.date != blank -%}
+                                    <div class="customer-review__info">
+                                        <span class="customer-review__icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-edit" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="svg-inline--fa fa-user-edit fa-w-20 fa-2x"><path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h274.9c-2.4-6.8-3.4-14-2.6-21.3l6.8-60.9 1.2-11.1 7.9-7.9 77.3-77.3c-24.5-27.7-60-45.5-99.9-45.5zm45.3 145.3l-6.8 61c-1.1 10.2 7.5 18.8 17.6 17.6l60.9-6.8 137.9-137.9-71.7-71.7-137.9 137.8zM633 268.9L595.1 231c-9.3-9.3-24.5-9.3-33.8 0l-37.8 37.8-4.1 4.1 71.8 71.7 41.8-41.8c9.3-9.4 9.3-24.5 0-33.9z" class=""></path></svg></span>
+                                        <span class="customer-review__name"><span class="name">{{ block.settings.name }}</span><span class="date">{{ block.settings.date }}</span></span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="customer-review__item--right{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}"{% if settings.banner_animation == 'effect_fade_up' %} data-cascade style="--animation-order: 1;"{% endif %}>
+                                {%- if block.settings.body != blank -%}
+                                <div class="customer-review__content">{{ block.settings.body }}</div>
+                                {%- endif -%}
+                                <div class="star-reviews">
+                                    {%- assign star_number = block.settings.rating | remove: 'star' | plus: 0 -%}
+                                    {%- for i in (1..5) -%}
+                                    <span class="star--icon {% if i > star_number %}star-empty{% endif %}"></span>
+                                    {%- endfor -%}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {%- else -%}
+                    <div class="halo-item customer-review__item {% if review_style == 'style_1' %}text-center{% elsif review_style == 'style_2' %}text-left{% endif %}{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}" {% if review_style == 'style_2' %}data-drag-item{% endif %}{% if settings.banner_animation == 'effect_fade_up' %} style="--animation-order: {{ forloop.index }};"{% endif %}>
+                        {%- if review_style == 'style_3' -%}
+                            <div class="star-reviews">
+                                {%- assign star_number = block.settings.rating | remove: 'star' | plus: 0 -%}
+                                {%- for i in (1..5) -%}
+                                <span class="star--icon {% if i > star_number %}star-empty{% endif %}"></span>
+                                {%- endfor -%}
+                            </div>
+                        {%- endif -%}
+                        {%- unless review_style == 'style_3' -%}
+                            {%- if section.settings.show_avatar -%}
+                                <div class="review__item-image" style="max-width: {{block.settings.avatar.width}}px; margin: 0 auto;">
+                                    {%- if block.settings.avatar -%}
+                                        {%- assign img_size = '250x' -%}
+                                        {%- assign preview_img = block.settings.avatar -%}
+                                        <div class="adaptive_height image-zoom" style="padding-top: {{ 1 | divided_by: preview_img.aspect_ratio | times: 100 }}%;">
+                                            <img {% render 'lazyload',preview_img: preview_img %} />
+                                            {%- if settings.enable_lazyload -%}<span class="data-lazy-loading"></span>{%- endif -%}
+                                        </div>
+                                    {%- endif -%}
+                                </div>
+                            {%- endif -%}
+                        {%- endunless -%}
+                        <div class="review__item-content{% if section.settings.center_mode %} maw-780{% else %} maw-480{% endif %} m-lr-auto">
+                            {%- if block.settings.sub_heading != blank -%}
+                                <div class="sub_heading">{{ block.settings.sub_heading }}</div>
+                            {%- endif -%}
+                            {%- if section.settings.start_position == 'above_title' -%}
+                                <div class="star-reviews">
+                                    {%- assign star_number = block.settings.rating | remove: 'star' | plus: 0 -%}
+                                    {%- for i in (1..5) -%}
+                                    <span class="star--icon {% if i > star_number %}star-empty{% endif %}"></span>
+                                    {%- endfor -%}
+                                </div>
+                            {%- endif -%}
+                            {%- if block.settings.heading != blank -%}
+                                <span class="heading">{{ block.settings.heading }}</span>
+                            {%- endif -%}
+                            {%- if section.settings.start_position == 'below_title' -%}
+                                {%- unless review_style == 'style_3' -%}
+                                <div class="star-reviews">
+                                    {%- assign star_number = block.settings.rating | remove: 'star' | plus: 0 -%}
+                                    {%- for i in (1..5) -%}
+                                    <span class="star--icon {% if i > star_number %}star-empty{% endif %}"></span>
+                                    {%- endfor -%}
+                                </div>
+                                {%- endunless -%}
+                            {%- endif -%}
+                            {%- if review_style == 'style_3' -%}
+                                {%- if section.settings.show_avatar -%}
+                                    <div class="content__wrapper">
+                                        <div class="review__item-image" style="width: {{block.settings.avatar.width}}px;">
+                                            {%- if block.settings.avatar -%}
+                                                {%- assign img_size = '250x' -%}
+                                                {%- assign preview_img = block.settings.avatar -%}
+                                                <div class="adaptive_height image-zoom" style="padding-top: {{ 1 | divided_by: preview_img.aspect_ratio | times: 100 }}%;">
+                                                    <img {% render 'lazyload',preview_img: preview_img %} />
+                                                    {%- if settings.enable_lazyload -%}<span class="data-lazy-loading"></span>{%- endif -%}
+                                                </div>
+                                            {%- endif -%}
+                                        </div>
+                                        <div class="review__content_right">
+                                            {%- if block.settings.name != blank -%}
+                                                <div class="name">{{ block.settings.name }}</div>
+                                            {%- endif -%}
+                                            {%- if block.settings.body != blank -%}
+                                                <div class="customer-review__content">{{ block.settings.body }}</div>
+                                            {%- endif -%}
+                                            {%- if block.settings.date != blank -%}
+                                                <div class="date">{{ block.settings.date }}</div>
+                                            {%- endif -%}
+                                        </div>
+                                    </div>
+                                {%- endif -%}
+                            {%- endif -%}
+
+                            {%- unless review_style == 'style_3' -%}
+                                {%- if block.settings.body != blank -%}
+                                    <div class="customer-review__content">{{ block.settings.body }}</div>
+                                {%- endif -%}
+                                {%- if block.settings.name != blank -%}
+                                    <div class="name">{{ block.settings.name }}</div>
+                                {%- endif -%}
+                                {%- if block.settings.date != blank -%}
+                                    <div class="date">{{ block.settings.date }}</div>
+                                {%- endif -%}
+                            {%- endunless -%}
+                        </div>
+                    </div>
+                    {%- endif -%}
+                {%- endfor -%}
+            </div>
+                {%- endunless -%}
+            {%- if review_style == 'style_2' -%}
+                </product-scroller>
+            {%- endif -%}
+        </div>
+    {%- if review_style == 'style_2' -%}
+        </div>
+    {%- endif -%}
+
+</div>
+{%- endif -%}
+{% schema %}
+  {
+    "name": "My Customer Review",
+    "class": "sections-customer-review-block",
+    "settings": [   
+        {
+            "type": "header",
+            "content": "t:settings_schema.general.name"
+        },
+        {
+            "type": "text",
+            "id": "section-class",
+            "label": "Section Class"
+        },
+        {
+            "type": "select",
+            "id": "container",
+            "label": "t:sections.layout.container.option",
+            "default": "container",
+            "options": [
+                {
+                    "value": "container",
+                    "label": "t:sections.layout.container.option1"
+                },
+                {
+                    "value": "1170",
+                    "label": "t:sections.layout.container.option4"
+                },
+                {
+                    "value": "1770",
+                    "label": "t:sections.layout.container.option3"
+                },
+                {
+                    "value": "fullwidth",
+                    "label": "t:sections.layout.container.option2"
+                }
+            ]
+        },
+        {
+            "type": "range",
+            "id": "padding_full_width",
+            "label": "t:sections.layout.container.padding_full_width",
+            "min": 0,
+            "max": 70,
+            "step": 5,
+            "unit": "t:sections.layout.fontsize.fontsize_title.unit",
+            "default": 0,
+            "info": "t:sections.layout.container.info_full_width"
+        },
+        {
+            "type": "select",
+            "id": "section_style",
+            "label": "t:sections.header.settings.mega_menu.label__1",
+            "options": [
+                {
+                    "value": "style_1",
+                    "label": "t:settings_schema.typography.settings.typography.style_1"
+                },
+                {
+                    "value": "style_2",
+                    "label": "t:settings_schema.typography.settings.typography.style_2"
+                },
+                {
+                    "value": "style_3",
+                    "label": "Style 3 with layout 1 only"
+                },
+                {
+                    "value": "style_4",
+                    "label": "Style 4"
+                }
+            ]
+        },
+        {
+            "type": "header",
+            "content": "t:sections.layout.margin_top"
+        },
+        {
+            "type": "range",
+            "id": "mg_top_desktop",
+            "label": "t:sections.layout.mg_desktop.label",
+            "min": 0,
+            "max": 150,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 50
+        },
+        {
+            "type": "range",
+            "id": "mg_top_tablet",
+            "label": "t:sections.layout.mg_tablet.label",
+            "min": 0,
+            "max": 150,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 50
+        },
+        {
+            "type": "range",
+            "id": "mg_top_mobile",
+            "label": "t:sections.layout.mg_mobile.label",
+            "min": 0,
+            "max": 150,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 50
+        },
+        {
+            "type": "header",
+            "content": "t:sections.layout.margin_bottom"
+        },
+        {
+            "type": "range",
+            "id": "mg_bottom_desktop",
+            "label": "t:sections.layout.mg_desktop.label",
+            "min": 0,
+            "max": 150,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 50
+        },
+        {
+            "type": "range",
+            "id": "mg_bottom_tablet",
+            "label": "t:sections.layout.mg_tablet.label",
+            "min": 0,
+            "max": 150,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 50
+        },
+        {
+            "type": "range",
+            "id": "mg_bottom_mobile",
+            "label": "t:sections.layout.mg_mobile.label",
+            "min": 0,
+            "max": 150,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 50
+        },
+        {
+            "type" : "color",
+            "id" : "review_bg",
+            "label": "t:settings_schema.colors.settings.colors_name.background_color",
+            "default" : "#fafafa"
+        },
+        {
+            "type" : "color",
+            "id" : "review_block_bg",
+            "label": "Review block card background color",
+            "default" : "#fff"
+        },
+        {
+            "type" : "color_background",
+            "id" : "review_bg_gradient",
+            "label": "t:settings_schema.colors.settings.colors_name.background_color_gradient"
+        },
+        {
+            "type" : "image_picker",
+            "id" : "review_bg_image",
+            "label" : "t:settings_schema.colors.settings.colors_name.background_image"
+        },
+        {
+            "type": "text",
+            "id": "review_title",
+            "label": "t:sections.image-banner.blocks.image.settings.content.label__1",
+            "default": "Top Reviews"
+        },
+          {
+        "type": "select",
+        "id": "title_weight",
+        "label": "Title Font Weight",
+        "options": [
+        {
+            "value": "400",
+            "label": "Regular"
+        },
+        {
+            "value": "500",
+            "label": "Medium"
+        },
+        {
+            "value": "700",
+            "label": "Bold"
+        }
+      ],
+        "default": "400"
+    },
+        {
+            "type" : "color",
+            "id" : "color_title",
+            "label": "t:sections.layout.color.color_title",
+            "default" : "#232323"
+        },
+        {
+            "type": "range",
+            "id": "mg_bottom_title",
+            "label": "t:sections.layout.mg_bottom_title.label",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 18
+        },
+        {
+            "type": "range",
+            "id": "fontsize_title",
+            "label": "t:sections.layout.fontsize.fontsize_title.label",
+            "min": 10,
+            "max": 100,
+            "step": 1,
+            "unit": "t:sections.layout.fontsize.fontsize_title.unit",
+            "default": 16
+        },
+        {
+            "type": "range",
+            "id": "fontsize_title_mb",
+            "label": "t:sections.layout.fontsize.fontsize_title.label_mb",
+            "min": 10,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.fontsize.fontsize_title.unit",
+            "default": 16
+        },
+        {
+            "type": "textarea",
+            "id": "review_des",
+            "label": "t:sections.image-banner.blocks.image.settings.content.label__2"
+        },
+        {
+            "type" : "color",
+            "id" : "color_des",
+            "label": "t:sections.layout.color.color_des",
+            "default" : "#3c3c3c"
+        },
+        {
+            "type": "range",
+            "id": "margin_bottom_des",
+            "label": "t:settings_schema.typography.settings.typography.des_margin_bottom",
+            "min": 0,
+            "max": 60,
+            "step": 1,
+            "unit": "t:sections.footer.settings.footer_bottom.pdtop_footer_bottom.unit",
+            "default": 35
+        },
+        {
+            "type": "range",
+            "id": "fontsize_des",
+            "label": "t:sections.layout.fontsize.fontsize_des.label",
+            "min": 10,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.fontsize.fontsize_title.unit",
+            "default": 16
+        },
+        {
+            "type": "select",
+            "id": "title_align",
+            "label": "t:sections.product_block.settings.general.label__7",
+            "options": [
+            {
+                "value": "left",
+                "label": "t:sections.product_block.settings.general.options__7"
+            },
+            {
+                "value": "center",
+                "label": "t:sections.product_block.settings.general.options__8"
+            },
+            {
+                "value": "right",
+                "label": "t:sections.product_block.settings.general.options__9"
+            }],
+            "default": "center"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.customer_review.settings.layout_block.header"
+        },
+        {
+            "type": "select",
+            "id": "block_layout_style",
+            "label": "t:sections.customer_review.settings.layout_block.block_layout_style.option",
+            "options": [
+            {
+                "value": "layout1",
+                "label": "t:sections.customer_review.settings.layout_block.block_layout_style.option1"
+            },
+            {
+                "value": "layout2",
+                "label": "t:sections.customer_review.settings.layout_block.block_layout_style.option2"
+            }],
+            "default": "layout1"
+        },
+        {
+            "type": "select",
+            "id": "review_rows",
+            "label": "t:sections.customer_review.settings.layout_block.review_rows.option",
+            "options": [
+                {
+                    "value": "1",
+                    "label": "1"
+                },
+                {
+                    "value": "2",
+                    "label": "2"
+                },
+                {
+                    "value": "3",
+                    "label": "3"
+                }
+            ],
+            "default": "1"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_arrow",
+            "label": "t:sections.customer_review.settings.layout_block.show_arrow",
+            "default": true 
+        },
+        {
+            "type": "checkbox",
+            "id": "center_mode",
+            "label": "t:settings_schema.typography.settings.typography.center_mode_enable",
+            "default": false 
+        },
+        {
+            "type": "paragraph",
+            "content": "t:sections.customer_review.settings.layout_block.avatar"
+        },
+        {
+            "type": "range",
+            "id": "avatar_margin_bottom",
+            "label": "t:sections.customer_review.settings.layout_block.avatar_margin_bottom",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.fontsize.fontsize_title.unit",
+            "default": 10
+        },
+        {
+            "type": "paragraph",
+            "content": "t:sections.image-banner.blocks.image.settings.content.label__19"
+        },
+        {
+            "type" : "color",
+            "id" : "color_heading",
+            "label": "t:sections.customer_review.settings.layout_block.color_heading",
+            "default" : "#202020"
+        },
+        {
+            "type": "range",
+            "id": "fontsize_heading",
+            "label": "t:sections.customer_review.settings.layout_block.fontsize_heading",
+            "min": 10,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.fontsize.fontsize_title.unit",
+            "default": 20
+        },
+        {
+            "type": "range",
+            "id": "heading_margin_bottom",
+            "label": "t:sections.customer_review.settings.layout_block.heading_margin_bottom",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.fontsize.fontsize_title.unit",
+            "default": 14
+        },
+        {
+            "type": "select",
+            "id": "heading_font_weight",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "options": [
+                {
+                    "value": "400",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__1"
+                },
+                {
+                    "value": "500",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__2"
+                },
+                {
+                    "value": "600",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__3"
+                },
+                {
+                    "value": "700",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__4"
+                },
+                {
+                    "value": "800",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__5"
+                },
+                {
+                    "value": "900",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__6"
+                }
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": "t:sections.slide-show.blocks.image.slider_content.sub_heading"
+        },
+        {
+            "type" : "color",
+            "id" : "color_sub_heading",
+            "label": "t:sections.customer_review.settings.layout_block.color_sub_heading",
+            "default" : "#808080"
+        },
+        {
+            "type": "range",
+            "id": "fontsize_sub_heading",
+            "label": "t:sections.customer_review.settings.layout_block.fontsize_sub_heading",
+            "min": 10,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.fontsize.fontsize_title.unit",
+            "default": 13
+        },
+        {
+            "type": "range",
+            "id": "sub_heading_margin_bottom",
+            "label": "t:sections.customer_review.settings.layout_block.sub_heading_margin_bottom",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.fontsize.fontsize_title.unit",
+            "default": 20
+        },
+        {
+            "type": "paragraph",
+            "content": "t:sections.customer_review.settings.layout_block.name"
+        },
+        {
+            "type" : "color",
+            "id" : "color_name",
+            "label": "t:sections.customer_review.settings.layout_block.color_name",
+            "default" : "#202020"
+        },
+        {
+            "type": "range",
+            "id": "fontsize_name",
+            "label": "t:sections.customer_review.settings.layout_block.fontsize_name",
+            "min": 10,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.fontsize.fontsize_title.unit",
+            "default": 14
+        },
+        {
+            "type": "range",
+            "id": "name_margin_bottom",
+            "label": "t:settings_schema.product_card.settings.product_title.label__8",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "t:sections.layout.fontsize.fontsize_title.unit",
+            "default": 0
+        },
+        {
+            "type": "paragraph",
+            "content": "t:sections.customer_review.settings.layout_block.date"
+        },
+        {
+            "type" : "color",
+            "id" : "color_date",
+            "label": "t:sections.customer_review.settings.layout_block.color_date",
+            "default" : "#808080"
+        },
+        {
+            "type": "range",
+            "id": "fontsize_date",
+            "label": "t:sections.customer_review.settings.layout_block.fontsize_date",
+            "min": 10,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.fontsize.fontsize_title.unit",
+            "default": 13
+        },
+        {
+            "type": "paragraph",
+            "content": "t:sections.customer_review.settings.layout_block.body"
+        },
+        {
+            "type" : "color",
+            "id" : "color_body",
+            "label": "t:sections.customer_review.settings.layout_block.color_content",
+            "default" : "#202020"
+        },
+        {
+            "type": "range",
+            "id": "fontsize_body",
+            "label": "t:sections.customer_review.settings.layout_block.fontsize_content",
+            "min": 10,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.fontsize.fontsize_title.unit",
+            "default": 16
+        },
+        {
+            "type": "range",
+            "id": "body_margin_bottom",
+            "label": "t:sections.customer_review.settings.layout_block.body_margin_bottom",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.fontsize.fontsize_title.unit",
+            "default": 24
+        },
+        {
+            "type": "paragraph",
+            "content": "t:sections.customer_review.settings.layout_block.icon"
+        },
+        {
+            "type" : "color",
+            "id" : "color_icon",
+            "label": "t:sections.customer_review.settings.layout_block.color_icon",
+            "default" : "#fff"
+        },
+        {
+            "type" : "color",
+            "id" : "bg_color_icon",
+            "label": "t:settings_schema.colors.settings.colors_name.background_color",
+            "default" : "#cbcbcb"
+        },
+        {
+            "type": "paragraph",
+            "content": "t:sections.customer_review.settings.layout_block.star"
+        },
+        {
+            "type": "range",
+            "id": "star_font_size",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.fontsize.fontsize_title.unit",
+            "default": 25
+        },
+        {
+            "type": "range",
+            "id": "star_margin_bottom",
+            "label": "t:sections.customer_review.settings.layout_block.star_margin_bottom",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.fontsize.fontsize_title.unit",
+            "default": 0
+        },
+        {
+            "type": "checkbox",
+            "id": "show_avatar",
+            "label": "t:sections.customer_review.settings.layout_block.show_avatar",
+            "default": true
+        },
+        {
+            "type": "select",
+            "id": "start_position",
+            "label": "t:sections.customer_review.settings.layout_block.star_position",
+            "default": "below_title",
+            "options": [
+                {
+                    "value": "above_title",
+                    "label": "t:sections.image-banner.blocks.image.settings.style.sub_title_above"
+                },
+                {
+                    "value": "below_title",
+                    "label": "t:sections.image-banner.blocks.image.settings.style.sub_title_below"
+                }
+            ]
+        },
+        {
+            "type": "color",
+            "id": "star_color",
+            "label": "t:sections.customer_review.settings.layout_block.star_color"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.collection_lookbook.settings.content_3"
+        },
+        { 
+            "type": "range",
+            "id": "scroll_height",
+            "label": "t:sections.product_block.settings.scroll.scroll_height",
+            "min": 1,
+            "max": 10,
+            "step": 1,
+            "default": 4,
+            "unit": "t:sections.layout.fontsize.fontsize_title.unit"
+        },
+        {
+            "type": "color",
+            "id": "scroll_track_bg",
+            "label": "t:sections.product_block.settings.scroll.scroll_track_bg",
+            "default": "#f1f1f1"
+        },
+        {
+            "type": "color",
+            "id": "scroll_thumb_color",
+            "label": "t:sections.product_block.settings.scroll.scroll_thumb_color",
+            "default": "#000"
+        },
+        {
+            "type": "color",
+            "id": "scroll_thumb_hover_color",
+            "label": "t:sections.product_block.settings.scroll.scroll_thumb_hover_color",
+            "default": "#444"
+        },
+        {
+            "type": "header",
+            "content": "Settings for slick pagination bar and arrows"
+        },
+        {
+            "type": "color",
+            "id": "bar_bg_color",
+            "label": "Pagination bar background color",
+            "default": "#EFF2F1"
+        },
+        {
+            "type": "color",
+            "id": "bar_fill_bg_color",
+            "label": "Pagination fill bar background color",
+            "default": "#5E8073"
+        },
+        {
+            "type": "color",
+            "id": "arrow_color",
+            "label": "Nevigation arrows color",
+            "default": "#5E8073"
+        },
+        {
+            "type": "color",
+            "id": "hover_arrow_color",
+            "label": "On hover Nevigation arrows color",
+            "default": "#FFFFFF"
+        },
+        {
+            "type": "color",
+            "id": "hover_arrow_bg_color",
+            "label": "On hoverNevigation arrows background color",
+            "default": "#5E8073"
+        }
+    ],
+    "blocks": [
+      {
+        "type": "review",
+        "name": "t:sections.customer_review.blocks.review.name",
+        "settings": [
+        {
+            "type" : "image_picker",
+            "id" : "avatar",
+            "label" : "t:sections.customer_review.blocks.review.settings.avatar"
+        },
+        {
+            "type" : "text",
+            "id" : "heading",
+            "label" : "t:sections.image-banner.blocks.image.settings.content.label__19",
+            "default" : "Awesome..."
+        },
+        {
+            "type" : "textarea",
+            "id" : "sub_heading",
+            "label" : "t:sections.slide-show.blocks.image.slider_content.sub_heading"
+        },
+        {
+            "type": "select",
+            "id": "rating",
+            "label": "t:sections.customer_review.blocks.review.settings.rating",
+            "options": [
+                { "value": "star0", "label": "0" },
+                { "value": "star1", "label": "1" },
+                { "value": "star2", "label": "2" },
+                { "value": "star3", "label": "3" },
+                { "value": "star4", "label": "4" },
+                { "value": "star5", "label": "5" }
+            ],
+            "default": "star5"
+        },
+        {
+            "type" : "text",
+            "id" : "name",
+            "label" : "t:sections.customer_review.blocks.review.settings.name"
+        },
+        {
+            "type" : "text",
+            "id" : "date",
+            "label" : "t:sections.customer_review.blocks.review.settings.date",
+            "default" : "Wednesday, Jan 26, 2019"
+        },
+        {
+            "type": "textarea",
+            "id": "body",
+            "label": "t:sections.customer_review.blocks.review.settings.body",
+            "default": "Nam tempus turpis at metus scelerisque placerat nulla deumantos delo sollicitudin delos felis. Pellentesque diam dolor an elementum et lobortis at mollis ut risus. Curabitur semper sagittis mi condimentum..."
+        }]
+      } 
+    ],
+    "presets": [
+        {
+          "name": "My Customer Review"
+        }
+    ],
+    "disabled_on": {
+        "groups": ["header"]
+    }
+  }
+{% endschema %}

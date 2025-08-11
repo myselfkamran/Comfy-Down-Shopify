@@ -1,0 +1,520 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<style>
+.testimonial-section-{{ section.id }} {
+  padding: 60px 0;
+}
+
+.testimonial-slider-wrapper {
+  position: relative;
+  display: flex;
+  padding-top: 50px;
+  /* align-items: flex-end; */
+  /* height: 476px; */
+}
+
+.testimonial-swiper {
+  flex: 1 1 54%;
+  position: relative;
+  margin-right: -50px;
+  z-index: 2;
+  height: 428px;
+  margin-top: -50px;
+}
+
+.testimonial-slide {
+  position: relative;
+  /* height: 428px; */
+}
+
+.testimonial-card {
+  padding: 32px 40px;
+  border-radius: 4px;
+  position: relative;
+  /* height: 428px; */
+}
+.testimonial-card .review-icon {
+  margin-bottom: 28px;
+}
+
+.testimonial-card .review {
+  margin-bottom: 28px;
+  margin-top: 0;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.reviewer-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+  
+.testimonial-image {
+  flex: 1 1 45%;
+  position: relative;
+  z-index: 1;
+  height: 395px;
+}
+
+.testimonial-image img {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  object-fit: cover;
+}
+.testimonial-navigation {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-top: 28px;
+}
+  
+.testimonial-navigation .testimonial-arrows {
+  width: 10%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.testimonial-navigation .swiper-pagination {
+  width: 90%;
+}
+  
+.testimonial-navigation .testimonial-arrows .swiper-button-prev,
+.testimonial-navigation .testimonial-arrows .swiper-button-next {
+  position: relative;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 44px;
+  height: 44px;
+  border: 1px solid {{ section.settings.arrow_color }};
+  border-radius: 100px;
+  padding: 10px;
+  margin-top: 0;
+}
+.testimonial-navigation .testimonial-arrows .swiper-button-prev:hover,
+.testimonial-navigation .testimonial-arrows .swiper-button-next:hover {
+  border: 1px solid {{ section.settings.hover_arrow_color }};
+  background: {{ section.settings.hover_arrow_bg_color }};
+}
+  
+.testimonial-navigation .testimonial-arrows .swiper-button-prev:hover svg path,
+.testimonial-navigation .testimonial-arrows .swiper-button-next:hover svg path {
+  stroke: {{ section.settings.hover_arrow_color }};
+}
+
+.testimonial-navigation .testimonial-arrows .swiper-button-prev:after,
+.testimonial-navigation .testimonial-arrows .swiper-button-next:after {
+  content: none;
+}
+
+.testimonial-navigation .swiper-pagination {
+  position: relative;
+  top: 0;
+  left: 0;
+  background: {{ section.settings.progress_bg }};
+  border-radius: 2px;
+}
+
+.testimonial-navigation .swiper-pagination .swiper-pagination-progressbar-fill {
+  background: {{ section.settings.progress_color }};
+  border-radius: 2px;
+}
+
+@media screen and (max-width: 1200px) {
+  .testimonial-card .review {
+    font-size: 16px;
+  }
+}
+  
+@media screen and (max-width: 1024px) {
+  .testimonial-card .review {
+    font-size: 16px;
+    line-height: normal;
+  }
+  .testimonial-navigation .testimonial-arrows .swiper-button-prev,
+  .testimonial-navigation .testimonial-arrows .swiper-button-next {
+    padding: 9px;
+  }
+  
+  .testimonial-navigation .testimonial-arrows .swiper-button-prev svg,
+  .testimonial-navigation .testimonial-arrows .swiper-button-next svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+.testimonial-section-{{ section.id }} .testimonial-title {
+  font-size: {{ section.settings.title_size_desktop }}px;
+}
+@media screen and (max-width: 767px) {
+  .testimonial-section-{{ section.id }} .testimonial-title {
+    font-size: {{ section.settings.title_size_mobile }}px !important;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .testimonial-section-{{ section.id }} .testimonial-title {
+    font-size: 36px;
+  }
+}
+@media screen and (max-width: 820px) {
+  .testimonial-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top_mobile }}px !important;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px !important;
+  }
+
+  .testimonial-section-{{ section.id }} .testimonial-title {
+    /* font-size: {{ section.settings.title_size_mobile }}px !important; */
+    margin-top: 0;
+    margin-bottom: {{ section.settings.title_margin_bottom | times: 0.5 }}px !important;
+  }
+
+  .testimonial-section-{{ section.id }} .testimonial-slider-wrapper {
+    padding-top: 0;
+    flex-direction: column-reverse;
+  }
+
+  .testimonial-section-{{ section.id }} .testimonial-slider-wrapper .testimonial-swiper {
+    height: unset;
+    margin: unset;
+    flex: unset;
+  }
+
+  .testimonial-section-{{ section.id }} .testimonial-image {
+    flex: unset;
+    height: unset;
+  }
+
+  .testimonial-slide .testimonial-card {
+    padding: 20px;
+  }
+  
+  .testimonial-card .review-icon {
+    margin-bottom: 10px;
+  }
+  
+  .testimonial-card .review {
+    margin-top: 0;
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 10px;
+    line-height: normal;
+  }
+  
+  .testimonial-navigation .testimonial-arrows {
+    width: 20%;
+    gap: 10px;
+  }
+  
+  .testimonial-navigation .swiper-pagination {
+    width: 80%;
+  }
+
+  .testimonial-navigation{
+    gap: 10px;
+  }
+
+  .testimonial-navigation .testimonial-arrows .swiper-button-prev,
+  .testimonial-navigation .testimonial-arrows .swiper-button-next {
+    padding: 5px;
+    width: 32px;
+    height: 32px;
+  }
+  
+  .testimonial-navigation .testimonial-arrows .swiper-button-prev svg,
+  .testimonial-navigation .testimonial-arrows .swiper-button-next svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+</style>
+
+<div class="testimonial-section-{{ section.id }}" style="background-color: {{ section.settings.background_color }}; padding-top: {{ section.settings.padding_top_desktop }}px; padding-bottom: {{ section.settings.padding_bottom_desktop }}px;">
+  <div class="container">
+    <h2 class="testimonial-title"
+        style="color: {{ section.settings.title_color }};
+               margin-bottom: {{ section.settings.title_margin_bottom }}px;">
+      {{ section.settings.section_title }}
+    </h2>
+
+    <div class="testimonial-slider-wrapper">
+      <div class="swiper mySwiper testimonial-swiper" data-testimonial-slider>
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            <div class="swiper-slide">
+              <div class="testimonial-slide">
+                <div class="testimonial-card" style="background-color: {{ block.settings.card_bg_color }}">
+                  {% if block.settings.quote_image %}
+                    <div class="review-icon">
+                      <img src="{{ block.settings.quote_image | image_url: width: 30 }}" alt="Quote Icon">
+                    </div>
+                  {% endif %}
+                  <p class="review" class="review-text" style="color: {{ block.settings.review_text_color }}">
+                    {{ block.settings.review_text }}
+                  </p>
+                  <div class="reviewer-info">
+                    {% if block.settings.reviewer_image %}
+                      <img src="{{ block.settings.reviewer_image | image_url: width: 30 }}" alt="" class="reviewer-avatar">
+                    {% endif %}
+                    <span class="reviewer-name" style="color: {{ block.settings.reviewer_text_color }}">
+                      {{ block.settings.reviewer_name }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      {% if section.settings.section_image %}
+        <div class="testimonial-image">
+          <img src="{{ section.settings.section_image | image_url: width: 600 }}" alt="Testimonial Image" />
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="testimonial-navigation">
+      <div class="testimonial-arrows">
+        <div class="swiper-button-prev" style="color: {{ section.settings.arrow_color | default: '#666' }};">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M20 11.9951H4M4 11.9951L10 17.9951M4 11.9951L10 5.99512" stroke="{{ section.settings.arrow_color }}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="swiper-button-next" style="color: {{ section.settings.arrow_color | default: '#666' }};">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M4 11.9951H20M20 11.9951L14 5.99512M20 11.9951L14 17.9951" stroke="{{ section.settings.arrow_color }}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+  var swiper = new Swiper(".mySwiper", {
+    pagination: {
+      el: ".swiper-pagination",
+      type: "progressbar",
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
+  function setEqualHeight() {
+    const cards = document.querySelectorAll(".review");
+    if (!cards.length) return;
+  
+    cards.forEach((card) => card.style.height = "auto");
+  
+    let maxHeight = 0;
+    cards.forEach((card) => {
+      const height = card.offsetHeight;
+      if (height > maxHeight) maxHeight = height;
+    });
+  
+    cards.forEach((card) => {
+      card.style.height = `${maxHeight}px`;
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    setEqualHeight();
+  
+    const resizeObserver = new ResizeObserver(setEqualHeight);
+    resizeObserver.observe(document.body); // or a wrapper div if more specific
+
+    const container = document.querySelector(".review")?.parentElement;
+    if (container) resizeObserver.observe(container);
+  });
+</script>
+
+{% schema %}
+{
+  "name": "My Custom Customer Review",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "From thrilled trade partners:"
+    },
+    {
+      "type": "image_picker",
+      "id": "section_image",
+      "label": "Section Side Image"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "title_size_desktop",
+      "min": 16,
+      "max": 48,
+      "step": 1,
+      "label": "Title Font Size (Desktop)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "label": "Title Font Size (Mobile)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "title_margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "label": "Title Margin Bottom (px)",
+      "default": 30
+    },
+    {
+      "type": "color",
+      "id": "progress_bg",
+      "label": "Progress Background Color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "progress_color",
+      "label": "Progress Fill Color",
+      "default": "#50796D"
+    },
+    {
+      "type": "color",
+      "id": "arrow_color",
+      "label": "Arrow Icon Color",
+      "default": "#50796D"
+    },
+    {
+        "type": "color",
+        "id": "hover_arrow_color",
+        "label": "On hover Nevigation arrows color",
+        "default": "#FFFFFF"
+    },
+    {
+        "type": "color",
+        "id": "hover_arrow_bg_color",
+        "label": "On hoverNevigation arrows background color",
+        "default": "#5E8073"
+    },
+    {
+      "type": "header",
+      "content": "Section Top Bottom Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "label": "Padding Top (Desktop)",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "label": "Padding Bottom (Desktop)",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "label": "Padding Top (Mobile)",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "label": "Padding Bottom (Mobile)",
+      "default": 30
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "quote_image",
+          "label": "Quote Icon Image"
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review Text",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nunc libero, egestas a libero sit amet, dapibus rutrum dui."
+        },
+        {
+          "type": "image_picker",
+          "id": "reviewer_image",
+          "label": "Reviewer Image"
+        },
+        {
+          "type": "text",
+          "id": "reviewer_name",
+          "label": "Reviewer Name",
+          "default": "Reviewer name"
+        },
+        {
+          "type": "color",
+          "id": "card_bg_color",
+          "label": "Card Background Color",
+          "default": "#F9F0E5"
+        },
+        {
+          "type": "color",
+          "id": "review_text_color",
+          "label": "Review Text Color",
+          "default": "#3A3A3A"
+        },
+        {
+          "type": "color",
+          "id": "reviewer_text_color",
+          "label": "Reviewer Name Color",
+          "default": "#888888"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "My Custom Customer Review",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
